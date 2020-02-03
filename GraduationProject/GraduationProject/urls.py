@@ -21,14 +21,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', views.index),
-    url(r'^login/', views.login),
-    url(r'^register/', views.register),
-    url(r'^logout/', views.logout),
-    url(r'^user/profile/update', views.profile_update),
-    url(r'^user/profile/', views.profile),
-    url(r'^user/pwd_change', views.pwd_change),
-    url(r'^user/avatar_change', views.avatar_change),
+    url(r'^api/index/', views.index),
+    url(r'^api/login/', views.login),
+    url(r'^api/register/', views.register),
+    url(r'^api/logout/', views.logout),
+    url(r'^api/user/profile/update', views.profile_update),
+    url(r'^api/user/profile/', views.profile),
+    url(r'^api/user/pwd_change', views.pwd_change),
+    url(r'^api/user/avatar_change', views.avatar_change),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

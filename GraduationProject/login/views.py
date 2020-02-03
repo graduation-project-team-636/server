@@ -6,6 +6,9 @@ import time
 
 # Create your views here.
 
+#global variables
+BaseUrl = "http://120.77.146.251:8000"
+
 
 def index(request):
 
@@ -42,7 +45,7 @@ def login(request):
                     response['data']['groupid'] = user.groupid
                     response['data']['reg_time'] = user.reg_time.strftime(
                         "%Y-%m-%d %H:%M:%S")
-                    response['data']['avatar'] = "http://120.77.146.251:8000" + \
+                    response['data']['avatar'] = BaseUrl + \
                         user.avatar.url
                     return JsonResponse(response)
                 else:
@@ -88,8 +91,9 @@ def register(request):
             response['data']['username'] = user.username
             response['data']['name'] = user.name
             response['data']['groupid'] = user.groupid
-            response['data']['reg_time'] = user.reg_time.strftime("%Y-%m-%d %H:%M:%S")
-            response['data']['avatar'] = "http://120.77.146.251:8000" + \
+            response['data']['reg_time'] = user.reg_time.strftime(
+                "%Y-%m-%d %H:%M:%S")
+            response['data']['avatar'] = BaseUrl + \
                 user.avatar.url
             return JsonResponse(response)
 
@@ -128,8 +132,9 @@ def profile(request):
         response['data']['username'] = user.username
         response['data']['name'] = user.name
         response['data']['groupid'] = user.groupid
-        response['data']['reg_time'] = user.reg_time.strftime("%Y-%m-%d %H:%M:%S")
-        response['data']['avatar'] = "http://120.77.146.251:8000" + \
+        response['data']['reg_time'] = user.reg_time.strftime(
+            "%Y-%m-%d %H:%M:%S")
+        response['data']['avatar'] = BaseUrl + \
             user.avatar.url
         response['data']['sex'] = user.sex
         response['data']['city'] = user.city
@@ -151,6 +156,7 @@ def profile_update(request):
             return JsonResponse(response)
 
         Profile_form = models.ProfileForm(request.POST)
+        print(Profile_form)
         if Profile_form.is_valid():  # 获取数据
             # 当一切都OK的情况下，更新用户信息
             user = models.User.objects.get(id=request.session['user_id'])
@@ -199,7 +205,7 @@ def avatar_change(request):
 
         # 返回参数
         response['data']['user_id'] = user.id
-        response['data']['avatar'] = "http://120.77.146.251:8000" + \
+        response['data']['avatar'] = BaseUrl + \
             user.avatar.url
 
         return JsonResponse(response)

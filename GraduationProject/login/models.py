@@ -63,11 +63,11 @@ class ProfileForm(forms.Form):
     sex = forms.CharField(label="性别", max_length=32, widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     city = forms.CharField(label="城市", max_length=128, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+        attrs={'class': 'form-control'}), required=False)
     occupation = forms.CharField(label="职业", max_length=128, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+        attrs={'class': 'form-control'}), required=False)
     hobby = forms.CharField(label="爱好", max_length=256, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+        attrs={'class': 'form-control'}), required=False)
     signature = forms.CharField(label="个性签名", max_length=128, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
+        attrs={'class': 'form-control'}), required=False)
 
