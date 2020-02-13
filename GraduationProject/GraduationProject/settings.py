@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
 import pymysql
+import static.tools.global_settings as global_settings
 pymysql.install_as_MySQLdb()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,11 +86,11 @@ WSGI_APPLICATION = 'GraduationProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'loginsys',  # 数据库名字
-        'USER': 'root',  # 账号
-        'PASSWORD': 'lyh7728948',  # 密码
-        'HOST': '127.0.0.1',  # IP
-        'PORT': '3306',  # 端口
+        'NAME': global_settings.Database['NAME'],  # 数据库名字
+        'USER': global_settings.Database['USER'],  # 账号
+        'PASSWORD': global_settings.Database['PASSWORD'],  # 密码
+        'HOST': global_settings.Database['HOST'],  # IP
+        'PORT': global_settings.Database['PORT'],  # 端口
     }
 }
 

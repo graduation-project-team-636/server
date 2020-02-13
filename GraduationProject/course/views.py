@@ -4,11 +4,9 @@ import login
 import json
 import time
 import string
+import static.tools.global_settings as global_settings
 
 # Create your views here.
-
-#global variables
-BaseUrl = "http://127.0.0.1:8000"
 
 
 def list2str(in_list):
@@ -65,7 +63,7 @@ def create(request):
             response['data']['course_introduction'] = new_course.course_introduction
             response['data']['course_category'] = new_course.course_category
             response['data']['course_tag'] = new_course.course_tag
-            response['data']['course_cover'] = BaseUrl + \
+            response['data']['course_cover'] = global_settings.BaseUrl + \
                 new_course.course_cover.url
             response['data']['course_attendance'] = new_course.course_attendance
             return JsonResponse(response)
@@ -116,7 +114,7 @@ def modify(request):
             response['data']['course_introduction'] = course.course_introduction
             response['data']['course_category'] = course.course_category
             response['data']['course_tag'] = course.course_tag
-            response['data']['course_cover'] = BaseUrl + \
+            response['data']['course_cover'] = global_settings.BaseUrl + \
                 course.course_cover.url
             response['data']['course_attendance'] = course.course_attendance
             return JsonResponse(response)
@@ -169,7 +167,7 @@ def access(request):
             tmp_course['course_introduction'] = course.course_introduction
             tmp_course['course_category'] = course.course_category
             tmp_course['course_tag'] = course.course_tag
-            tmp_course['course_cover'] = BaseUrl + \
+            tmp_course['course_cover'] = global_settings.BaseUrl + \
                 course.course_cover.url
             tmp_course['course_attendance'] = course.course_attendance
             tmp_courses.append(tmp_course)
@@ -351,7 +349,7 @@ def attended_by_users(request):
             tmp_course['course_introduction'] = course.course_introduction
             tmp_course['course_category'] = course.course_category
             tmp_course['course_tag'] = course.course_tag
-            tmp_course['course_cover'] = BaseUrl + \
+            tmp_course['course_cover'] = global_settings.BaseUrl + \
                 course.course_cover.url
             tmp_course['course_attendance'] = course.course_attendance
             tmp_courses.append(tmp_course)

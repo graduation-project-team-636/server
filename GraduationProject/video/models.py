@@ -6,8 +6,7 @@ from django import forms
 class Video(models.Model):
     video_name = models.CharField(max_length=128)
     video_duration = models.IntegerField()
-    video_data = models.FileField(upload_to='avatars/%Y/%m/%d',
-                                  default="/avatars/default.png")
+    video_data = models.FileField(upload_to='video/%Y/%m/%d')
     upload_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -15,17 +15,17 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     reg_time = models.DateTimeField(auto_now_add=True)
     groupid = models.IntegerField(default="2")
-    email = models.CharField(max_length=128, blank=True, null=True)
-    telephone = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=128, blank=True, default="")
+    telephone = models.CharField(max_length=50, blank=True, default="")
     sex = models.CharField(max_length=32, default="1")
     signature = models.CharField(max_length=128, default="这个人很懒，什么都没有留下")
-    city = models.CharField(max_length=128, blank=True, null=True)
-    occupation = models.CharField(max_length=128, blank=True, null=True)
-    hobby = models.CharField(max_length=256, blank=True, null=True)
+    city = models.CharField(max_length=128, blank=True, default="")
+    occupation = models.CharField(max_length=128, blank=True, default="")
+    hobby = models.CharField(max_length=256, blank=True, default="")
     avatar = models.FileField(upload_to='avatars/%Y/%m/%d',
                               default="/avatars/default.png")
     attendance_course_id = models.CharField(
-        max_length=256, blank=True, null=True)
+        max_length=256, blank=True, default="")
 
     def __str__(self):
         return self.username

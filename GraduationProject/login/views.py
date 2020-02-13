@@ -3,11 +3,9 @@ from login import models
 from django.http import JsonResponse
 import json
 import time
+import static.tools.global_settings as global_settings
 
 # Create your views here.
-
-#global variables
-BaseUrl = "http://127.0.0.1:8000"
 
 
 def index(request):
@@ -45,7 +43,7 @@ def login(request):
                     response['data']['groupid'] = user.groupid
                     response['data']['reg_time'] = user.reg_time.strftime(
                         "%Y-%m-%d %H:%M:%S")
-                    response['data']['avatar'] = BaseUrl + \
+                    response['data']['avatar'] = global_settings.BaseUrl + \
                         user.avatar.url
                     return JsonResponse(response)
                 else:
@@ -94,7 +92,7 @@ def register(request):
             response['data']['groupid'] = user.groupid
             response['data']['reg_time'] = user.reg_time.strftime(
                 "%Y-%m-%d %H:%M:%S")
-            response['data']['avatar'] = BaseUrl + \
+            response['data']['avatar'] = global_settings.BaseUrl + \
                 user.avatar.url
             return JsonResponse(response)
 
@@ -136,7 +134,7 @@ def profile(request):
         response['data']['groupid'] = user.groupid
         response['data']['reg_time'] = user.reg_time.strftime(
             "%Y-%m-%d %H:%M:%S")
-        response['data']['avatar'] = BaseUrl + \
+        response['data']['avatar'] = global_settings.BaseUrl + \
             user.avatar.url
         response['data']['sex'] = user.sex
         response['data']['city'] = user.city
@@ -214,7 +212,7 @@ def avatar_change(request):
 
         # 返回参数
         response['data']['user_id'] = user.id
-        response['data']['avatar'] = BaseUrl + \
+        response['data']['avatar'] = global_settings.BaseUrl + \
             user.avatar.url
 
         return JsonResponse(response)

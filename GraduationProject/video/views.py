@@ -5,11 +5,9 @@ import course
 import json
 import time
 import string
+import static.tools.global_settings as global_settings
 
 # Create your views here.
-
-#global variables
-BaseUrl = "http://127.0.0.1:8000"
 
 
 def list2str(in_list):
@@ -73,7 +71,7 @@ def upload(request):
             response['data']['video_id'] = new_video.id
             response['data']['video_name'] = new_video.video_name
             response['data']['video_duration'] = new_video.video_duration
-            response['data']['video_data'] = BaseUrl + new_video.video_data.url
+            response['data']['video_data'] = global_settings.BaseUrl + new_video.video_data.url
             return JsonResponse(response)
 
     response['message'] = "请求发生错误"
@@ -115,7 +113,7 @@ def modify(request):
             response['data']['video_id'] = video.id
             response['data']['video_name'] = video.video_name
             response['data']['video_duration'] = video.video_duration
-            response['data']['video_data'] = BaseUrl + video.video_data.url
+            response['data']['video_data'] = global_settings.BaseUrl + video.video_data.url
             return JsonResponse(response)
 
     response['message'] = "请求发生错误"
@@ -150,7 +148,7 @@ def access(request):
             tmp_video['video_id'] = video.id
             tmp_video['video_name'] = video.video_name
             tmp_video['video_duration'] = video.video_duration
-            tmp_video['video_data'] = BaseUrl + video.video_data.url
+            tmp_video['video_data'] = global_settings.BaseUrl + video.video_data.url
             tmp_videos.append(tmp_video)
         response['data']['video'] = tmp_videos
         return JsonResponse(response)
