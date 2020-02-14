@@ -21,7 +21,7 @@ def list2str(in_list):
 
 def str2list(in_str):
     list = []
-    if in_str is None:
+    if in_str is None or in_str == '':
         return list
     list = in_str.split(",")
     res = [int(x) for x in list]
