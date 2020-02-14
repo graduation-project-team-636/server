@@ -14,9 +14,9 @@ class Course(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
     course_attendance_id = models.CharField(
-        max_length=256, blank=True, null=True)
+        max_length=256, blank=True, default="")
     video_id = models.CharField(
-        max_length=256, blank=True, null=True)
+        max_length=256, blank=True, default="")
 
     def __str__(self):
         return self.course_name
