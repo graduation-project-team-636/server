@@ -128,11 +128,6 @@ def access(request):
     response['message'] = "获取成功"
     response['data'] = {}
     if request.method == "GET":
-        if not request.session.get('is_login', None):
-            response['error_code'] = 13
-            response['message'] = "用户未登录"
-            return JsonResponse(response)
-
         course_id = request.GET.get('course_id')
         # 查找课程
         try:

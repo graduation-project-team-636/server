@@ -130,11 +130,6 @@ def access(request):
     response['message'] = "获取成功"
     response['data'] = {}
     if request.method == "GET":
-        if not request.session.get('is_login', None):
-            response['error_code'] = 13
-            response['message'] = "用户未登录"
-            return JsonResponse(response)
-
         course_category = request.GET.get('course_category')
         course_tag = request.GET.get('course_tag')
         order = int(request.GET.get('order'))
@@ -184,10 +179,6 @@ def total_num(request):
     response['message'] = "获取成功"
     response['data'] = {}
     if request.method == "GET":
-        if not request.session.get('is_login', None):
-            response['error_code'] = 13
-            response['message'] = "用户未登录"
-            return JsonResponse(response)
 
         response['data']['num'] = models.Course.objects.count()
         return JsonResponse(response)
