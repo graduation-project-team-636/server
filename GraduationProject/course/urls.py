@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^attend/', views.attend),
     url(r'^withdraw/', views.withdraw),
     url(r'^attended_by_users/', views.attended_by_users),
+    url(r'^query?', views.query),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

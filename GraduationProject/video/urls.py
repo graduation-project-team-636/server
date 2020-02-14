@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^modify/', views.modify),
     url(r'^access?', views.access),
     url(r'^delete/', views.delete),
+    url(r'^query/', views.query),
 ]

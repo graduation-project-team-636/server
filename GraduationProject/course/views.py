@@ -349,3 +349,30 @@ def attended_by_users(request):
 
     response['message'] = "请求发生错误"
     return JsonResponse(response)
+
+
+def query(request):
+    response = {}
+    response['error_code'] = 0
+    response['message'] = "获取成功"
+    response['data'] = {}
+    if request.method == "GET":
+        course_id = request.GET.get('course_id')
+        # 查找id是否存在
+        try:
+            course = models.Course.objects.get(id=course_id)
+        except:
+            response['error_code'] = 31
+            response['message'] = "id不存在"
+            return JsonResponse(response)
+
+        # 返回参数
+        response['data']['course_id'] = course.id
+        response['data']['course_name'] = course.course_name
+        response['data']['course_introduction'] = course.course_introduction
+        response['data']['course_category'] = course.course_category
+        response['data']['course_tag'] = course.course_tag
+        response['data']['course_cover'] = global_settings.BaseUrl + \
+            course.course_cover.url
+        response['data']['course_attendance'] = course.course_attendance
+        return JsonResponse(response)

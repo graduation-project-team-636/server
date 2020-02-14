@@ -186,3 +186,27 @@ def delete(request):
 
     response['message'] = "请求发生错误"
     return JsonResponse(response)
+
+
+def query(request):
+    response = {}
+    response['error_code'] = 0
+    response['message'] = "获取成功"
+    response['data'] = {}
+    if request.method == "GET":
+        video_id = request.GET.get('video_id')
+        # 查找id是否存在
+        try:
+            video = models.Video.objects.get(id=video_id)
+        except:
+            response['error_code'] = 31
+            response['message'] = "id不存在"
+            return JsonResponse(response)
+
+        # 返回参数
+        response['data']['video_id'] = video.id
+        response['data']['video_name'] = video.video_name
+        response['data']['video_duration'] = video.video_duration
+        response['data']['video_data'] = global_settings.BaseUrl + \
+            video.video_data.url
+        return JsonResponse(response)
