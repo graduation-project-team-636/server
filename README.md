@@ -27,3 +27,13 @@ Database = {
 BaseUrl = "http://127.0.0.1:8000"
 
 ```
+
+4. 单元测试。
+
+> 运行所有测试文件
+>
+> python manage.py test 
+>
+> 运行指定应用的测试文件
+>
+> python manage.py test app
