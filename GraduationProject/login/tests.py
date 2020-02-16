@@ -151,18 +151,18 @@ class UserAvatarChangeCase(TestCase):
     def test_1(self):
         res = self.client.post(
             '/api/login/', {'username': 'test1', 'password': 'test1'})
-        with open(path + '\\media\\avatars\\default.png') as fp:
+        with open(path + '\\media\\avatars\\default.png', 'rb+') as fp:
             res = self.client.post(
                 '/api/user/avatar_change/', {'avatar': fp})
             self.assertEqual(res.status_code, 200)
             self.assertEqual(res.json()['error_code'], 0)
-            self.assertEqual(res.json()['message'], "修改成功")
+            self.assertEqual(res.json()['message'], "用户头像修改成功")
             self.assertEqual(type(res.json()['data']['user_id']), int)
             self.assertEqual(type(res.json()['data']['avatar']), str)
 
     # 2.用户未登录
     def test_2(self):
-        with open(path + '\\media\\avatars\\default.png') as fp:
+        with open(path + '\\media\\avatars\\default.png', 'rb+') as fp:
             res = self.client.post(
                 '/api/user/avatar_change/', {'avatar': fp})
             self.assertEqual(res.status_code, 200)

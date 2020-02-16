@@ -159,7 +159,6 @@ def profile_update(request):
             return JsonResponse(response)
 
         Profile_form = models.ProfileForm(request.POST)
-        print(Profile_form)
         if Profile_form.is_valid():  # 获取数据
             # 当一切都OK的情况下，更新用户信息
             user = models.User.objects.get(id=request.session['user_id'])

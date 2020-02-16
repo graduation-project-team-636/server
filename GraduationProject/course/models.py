@@ -10,7 +10,7 @@ class Course(models.Model):
     course_tag = models.CharField(max_length=32)
     course_cover = models.FileField(upload_to='cover/%Y/%m/%d',
                                     default="/cover/default.png")
-    course_attendance = models.IntegerField(default="0")
+    course_attendance = models.IntegerField(default=0)
     create_time = models.DateTimeField(auto_now_add=True)
 
     course_attendance_id = models.CharField(
