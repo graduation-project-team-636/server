@@ -1,6 +1,7 @@
 from course import models
 from django.http import JsonResponse
 import login
+import video
 import json
 import time
 import string
@@ -179,8 +180,21 @@ def total_num(request):
     response['message'] = "获取成功"
     response['data'] = {}
     if request.method == "GET":
+        course_category = request.GET.get('course_category')
+        course_tag = request.GET.get('course_tag')
+        if course_category == "all":
+            if course_tag == "all":
+                response['data']['num'] = models.Course.objects.count()
+            else:
+                response['data']['num'] = models.Course.objects.filter(
+                    course_tag=course_tag).count()
+        elif course_tag == "all":
+            response['data']['num'] = models.Course.objects.filter(
+                course_category=course_category).count()
+        else:
+            response['data']['num'] = models.Course.objects.filter(
+                course_category=course_category, course_tag=course_tag).count()
 
-        response['data']['num'] = models.Course.objects.count()
         return JsonResponse(response)
 
     response['message'] = "请求发生错误"
@@ -205,9 +219,25 @@ def delete(request):
 
         course_id = request.POST.get('course_id')
         try:
-            obj = models.Course.objects.get(id=course_id)
-            # 删除封面再删除对象
-            obj.course_cover.delete()
+            del_course = models.Course.objects.get(id=course_id)
+            # 删除所属视频
+            video_id = str2list(del_course.video_id)
+            for del_video_id in video_id:
+                del_video = video.models.Video.objects.get(id=del_video_id)
+                # 删除视频文件再删除对象
+                del_video.video_data.delete()
+                video.models.Video.objects.get(id=del_video_id).delete()
+            # 删除参加用户的记录
+            course_attendance_id = str2list(del_course.course_attendance_id)
+            for del_user_id in course_attendance_id:
+                del_user = login.models.User.objects.get(id=del_user_id)
+                attendance_course_id = del_user.attendance_course_id
+                attendance_course_id.remove(course_id)
+                del_user.attendance_course_id = list2str(attendance_course_id)
+                del_user.save()
+            # 删除封面
+            del_course.course_cover.delete()
+            # 删除课程
             models.Course.objects.get(id=course_id).delete()
         except:
             response['error_code'] = 31

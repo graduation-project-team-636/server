@@ -174,7 +174,7 @@ class CourseTotalNumCase(TestCase):
     # 1.获取成功
     def test_1(self):
         res = self.client.get(
-            '/api/course/total_num/')
+            '/api/course/total_num?course_category=fe&course_tag=all')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.json()['error_code'], 0)
         self.assertEqual(res.json()['message'], "获取成功")

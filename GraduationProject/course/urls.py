@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^create/', views.create),
     url(r'^modify/', views.modify),
     url(r'^access?', views.access),
-    url(r'^total_num/', views.total_num),
+    url(r'^total_num?', views.total_num),
     url(r'^delete/', views.delete),
     url(r'^attend/', views.attend),
     url(r'^withdraw/', views.withdraw),
