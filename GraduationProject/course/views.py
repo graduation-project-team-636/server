@@ -217,7 +217,7 @@ def delete(request):
             response['message'] = "用户不是管理员"
             return JsonResponse(response)
 
-        course_id = request.POST.get('course_id')
+        course_id = int(request.POST.get('course_id'))
         try:
             del_course = models.Course.objects.get(id=course_id)
             # 删除所属视频
@@ -227,11 +227,13 @@ def delete(request):
                 # 删除视频文件再删除对象
                 del_video.video_data.delete()
                 video.models.Video.objects.get(id=del_video_id).delete()
+            print('1')
             # 删除参加用户的记录
             course_attendance_id = str2list(del_course.course_attendance_id)
+            print("course_attendance_id", course_attendance_id)
             for del_user_id in course_attendance_id:
                 del_user = login.models.User.objects.get(id=del_user_id)
-                attendance_course_id = del_user.attendance_course_id
+                attendance_course_id = str2list(del_user.attendance_course_id)
                 attendance_course_id.remove(course_id)
                 del_user.attendance_course_id = list2str(attendance_course_id)
                 del_user.save()
