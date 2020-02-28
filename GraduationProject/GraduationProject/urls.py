@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^api/course/', include('course.urls')),
     url(r'^api/video/', include('video.urls')),
     url(r'^api/', include('login.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.PPT_URL, document_root=settings.PPT_ROOT)

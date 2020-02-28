@@ -6,6 +6,8 @@ import json
 import time
 import string
 import static.tools.global_settings as global_settings
+from navigation.video import VidToSlides
+import os
 
 # Create your views here.
 
@@ -59,9 +61,12 @@ def upload(request):
                 response['message'] = "id不存在"
                 return JsonResponse(response)
             # 当一切都OK的情况下，上传视频给一个课程
+
             new_video = models.Video.objects.create(
                 video_name=video_name, video_duration=video_duration,
-                video_data=video_data)
+                video_data=video_data, extract_down=True)
+            VidToSlides.main(
+                os.getcwd() + new_video.video_data.url.replace("/", "\\"), new_video.id)
             # 将视频id记录在课程信息中
             video_id = str2list(up_course.video_id)
             video_id.append(new_video.id)
@@ -209,4 +214,37 @@ def query(request):
         response['data']['video_duration'] = video.video_duration
         response['data']['video_data'] = global_settings.BaseUrl + \
             video.video_data.url
+        return JsonResponse(response)
+
+
+def getppt(request):
+    response = {}
+    response['error_code'] = 0
+    response['message'] = "获取成功"
+    response['data'] = {}
+    if request.method == "GET":
+        video_id = request.GET.get('video_id')
+        # 查找id是否存在
+        try:
+            video = models.Video.objects.get(id=video_id)
+        except:
+            response['error_code'] = 31
+            response['message'] = "id不存在"
+            return JsonResponse(response)
+
+        if not video.extract_down:
+            response['error_code'] = 34
+            response['message'] = "暂无ppt图片"
+            return JsonResponse(response)
+        tmp_ppts = []
+        with open(os.getcwd() + "\\navigation\\video\\slides\\" + str(video.id) + "\\schedule.txt", 'r', encoding='utf-8') as schedule:
+            for line in schedule:
+                line = line.split()
+                tmp_ppt = {}
+                tmp_ppt['ppt_positon'] = int(line[1])
+                tmp_ppt['ppt_image'] = global_settings.BaseUrl + \
+                    "/ppt/" + str(video.id) + "/" + line[0]
+                tmp_ppts.append(tmp_ppt)
+        # 返回参数
+        response['data']['ppt'] = tmp_ppts
         return JsonResponse(response)

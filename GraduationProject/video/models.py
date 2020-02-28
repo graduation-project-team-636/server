@@ -8,6 +8,7 @@ class Video(models.Model):
     video_duration = models.IntegerField()
     video_data = models.FileField(upload_to='video/%Y/%m/%d')
     upload_time = models.DateTimeField(auto_now_add=True)
+    extract_down = models.BooleanField(default=False)
 
     def __str__(self):
         return self.video_name
