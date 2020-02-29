@@ -8,8 +8,25 @@ import string
 import static.tools.global_settings as global_settings
 from navigation.video import VidToSlides
 import os
+import threading
+import _thread
 
 # Create your views here.
+
+
+class PPTExtract(threading.Thread):
+    def __init__(self, fileLocation, videoId):
+        threading.Thread.__init__(self)
+        self.fileLocation = fileLocation
+        self.videoId = videoId
+
+    def run(self):
+        print("start process video：" + str(self.videoId))
+        VidToSlides.main(self.fileLocation, self.videoId)
+        video = models.Video.objects.get(id=self.videoId)
+        video.extract_down = True
+        video.save()
+        print("finish process video：" + str(self.videoId))
 
 
 def list2str(in_list):
@@ -64,9 +81,17 @@ def upload(request):
 
             new_video = models.Video.objects.create(
                 video_name=video_name, video_duration=video_duration,
-                video_data=video_data, extract_down=True)
-            VidToSlides.main(
+                video_data=video_data)
+            # try:
+            #     _thread.start_new_thread(VidToSlides.main, (
+            #         os.getcwd() + new_video.video_data.url.replace("/", "\\"), new_video.id))
+            #     new_video.extract_down = True
+            #     new_video.save()
+            # except:
+            #     print("处理ppt失败")
+            thread = PPTExtract(
                 os.getcwd() + new_video.video_data.url.replace("/", "\\"), new_video.id)
+            thread.start()
             # 将视频id记录在课程信息中
             video_id = str2list(up_course.video_id)
             video_id.append(new_video.id)
