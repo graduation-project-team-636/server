@@ -1,5 +1,16 @@
 # server
 基于多线索的教育类视频导航系统的后端仓库
+
+### 注意事项
+
+* 文件路径使用英文
+
+* python 安装制定版本的库命令  
+
+  > pip install lib==version
+  >
+  > eg.pip install opencv-python==3.4.3
+
 ### 环境配置
 * Django安装：[https://www.runoob.com/django/django-tutorial.html](https://www.runoob.com/django/django-tutorial.html)
 
