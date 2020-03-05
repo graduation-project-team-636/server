@@ -9,7 +9,7 @@
 * Python **3.6.8**
 * Django **2.2.1**
 * MySQL Community Server **5.7.17** 
-* OpenCV **2.4.13.6-vc14**
+* OpenCV **3.4.3**
 ### 使用方法
 所有操作都在manage.py文件目录下
 1. 开启服务器
