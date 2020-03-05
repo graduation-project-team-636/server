@@ -296,7 +296,6 @@ def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
 def stream_video(request):
     """将视频文件以流媒体的方式响应"""
     path = os.getcwd() + request.path.replace('/', '\\')
-    print(path)
     range_header = request.META.get('HTTP_RANGE', '').strip()
     range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
     range_match = range_re.match(range_header)
