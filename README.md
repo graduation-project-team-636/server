@@ -1,11 +1,15 @@
 # server
 基于多线索的教育类视频导航系统的后端仓库
 ### 环境配置
-[https://www.runoob.com/django/django-tutorial.html](https://www.runoob.com/django/django-tutorial.html)
+* Django安装：[https://www.runoob.com/django/django-tutorial.html](https://www.runoob.com/django/django-tutorial.html)
+
+* OpenCV安装：[https://blog.csdn.net/maizousidemao/article/details/81474834](<https://blog.csdn.net/maizousidemao/article/details/81474834>)
+
 ### 运行环境
-* Python 3.6.8
-* Django 2.2.1
-* 5.7.17 MySQL Community Server
+* Python **3.6.8**
+* Django **2.2.1**
+* MySQL Community Server **5.7.17** 
+* OpenCV **2.4.13.6-vc14**
 ### 使用方法
 所有操作都在manage.py文件目录下
 1. 开启服务器
