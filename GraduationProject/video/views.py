@@ -87,13 +87,13 @@ def upload(request):
                 video_data=video_data)
             # try:
             #     _thread.start_new_thread(VidToSlides.main, (
-            #         os.getcwd() + new_video.video_data.url.replace("/", "\\"), new_video.id))
+            #         os.getcwd() + new_video.video_data.url.replace("/", "/"), new_video.id))
             #     new_video.extract_down = True
             #     new_video.save()
             # except:
             #     print("处理ppt失败")
             thread = PPTExtract(
-                os.getcwd() + new_video.video_data.url.replace("/", "\\"), new_video.id)
+                os.getcwd() + new_video.video_data.url.replace("/", "/"), new_video.id)
             thread.start()
             # 将视频id记录在课程信息中
             video_id = str2list(up_course.video_id)
@@ -265,7 +265,7 @@ def getppt(request):
             response['message'] = "暂无ppt图片"
             return JsonResponse(response)
         tmp_ppts = []
-        with open(os.getcwd() + "\\navigation\\video\\slides\\" + str(video.id) + "\\schedule.txt", 'r', encoding='utf-8') as schedule:
+        with open(os.getcwd() + "/navigation/video/slides/" + str(video.id) + "/schedule.txt", 'r', encoding='utf-8') as schedule:
             for line in schedule:
                 line = line.split()
                 tmp_ppt = {}
@@ -295,7 +295,7 @@ def file_iterator(file_name, chunk_size=8192, offset=0, length=None):
 
 def stream_video(request):
     """将视频文件以流媒体的方式响应"""
-    path = os.getcwd() + request.path.replace('/', '\\')
+    path = os.getcwd() + request.path.replace('/', '/')
     range_header = request.META.get('HTTP_RANGE', '').strip()
     range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
     range_match = range_re.match(range_header)

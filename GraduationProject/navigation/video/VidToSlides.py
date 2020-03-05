@@ -229,17 +229,17 @@ def main(fileLocation, videoId):
     num_frames = 0
     num_corners = 0
     max_contour_orig = np.empty(0)
-    prefix = os.getcwd() + "\\navigation\\video\\slides\\" + str(videoId) + "\\"
+    prefix = os.getcwd() + "/navigation/video/slides/" + str(videoId) + "/"
     face_cascade = cv2.CascadeClassifier(os.getcwd() +
-                                         "\\navigation\\video\\haarcascade_frontalface_default.xml")
+                                         "/navigation/video/haarcascade_frontalface_default.xml")
     location = fileLocation
     oldFrame = None
     cap = cv2.VideoCapture(location)
     isExists = os.path.exists(
-        os.getcwd() + "\\navigation\\video\\slides\\" + str(videoId))
+        os.getcwd() + "/navigation/video/slides/" + str(videoId))
     if not isExists:
         os.makedirs(
-            os.getcwd() + "\\navigation\\video\\slides\\" + str(videoId))
+            os.getcwd() + "/navigation/video/slides/" + str(videoId))
     while True:
         # Capture frame-by-frame
         for i in range(60):
@@ -338,4 +338,4 @@ def main(fileLocation, videoId):
     cv2.destroyAllWindows()
 
 
-# main("D:\\下载\\k-means.mp4", 1)
+# main("D:/下载/k-means.mp4", 1)
